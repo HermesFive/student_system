@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dyfive.dao.CourseDao">
+
+    <sql id="CourseFindCriteria">
+        <where>
+            <if test="courseId!=null" >and courseId = #{courseId}</if>
+            <if test="courseName!=null and courseName != ''">and courseName = #{courseName}</if>
+            <if test="courseDept!=null and courseDept != ''">and courseDept = #{courseDept}</if>
+            <if test="courseCredit!=null">and courseCredit = #{courseCredit}</if>
+        </where>
+    </sql>
+
+    <sql id="joinedCourseFindCriteria">
+        <where>
+            <if test="courseTeacher!=null and courseTeacher!=''" >and user.name = #{courseTeacher}</if>
+            <if test="courseName!=null and courseName != ''">and course.courseName = #{courseName}</if>
+            <if test="courseDept!=null and courseDept != ''">and dept.deptName = #{courseDept}</if>
+            <if test="courseCredit!=null">and course.courseCredit = #{courseCredit}</if>
+        </where>
+    </sql>
+
+
+    <select id="searchCourse" resultType="com.dyfive.entity.CourseJoinDeptJoinTeacher">
+        select course.courseId as jCourseId,course.courseName as jCourseName,course.courseRoom as jCourseRoom,
+               user.name as jCourseTeacherName,course.courseStudentNum as jCourseStudentNum,course.courseCredit as jCourseCredit
+               ,dept.deptName as jCourseDeptName
+        from td_dept dept join td_course course join td_user user
+            on dept.deptId = course.courseDept and course.courseTeacher = user.id
+        <include refid="joinedCourseFindCriteria"/>
+    </select>
+
+
+</mapper>

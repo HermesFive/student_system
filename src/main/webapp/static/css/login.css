@@ -1,0 +1,120 @@
+.login{
+    height: 600px;
+    border: 1px;
+}
+
+.login_header{
+    background-color: #f5f5f5;
+    height: 78px;
+    width: 100%;
+    position: relative;
+}
+
+.login_body{
+    height: 460px;
+    width: 964px;
+    position: relative;
+    margin:0 auto;
+    background: url(../images/login_bg.jpg);
+}
+
+.login_footer{
+    background-color: #f5f5f5;
+    height: 40px;
+    width: 964px;
+    margin: 0 auto;
+    padding-top: 10px;
+    position: relative;
+    text-align: center;
+}
+
+ .logo{
+    margin-left: 456px;
+    margin-top: 16px;
+    position: absolute;
+}
+
+.help{
+    margin-left: 1403px;
+    margin-top: 30px;
+    text-decoration: none;
+    position: absolute;
+}
+
+.loginContent{
+    margin-top: 100px;
+    margin-left: 550px;
+    width: 380px;
+    height: 310px;
+    position: absolute;
+    background-color: #fff;
+    font-size: large;
+    font-weight: 200;
+    font-family: "微软雅黑";
+}
+
+.loginTitle{
+    width: 380px;
+    height: 38px;
+    left: 549px;
+    top: 52px;
+    padding-top: 10px;
+    background-color: rgba(213, 112, 20, 0.8);
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    position: absolute;
+}
+
+#tip{
+    height: 50px;
+    width: 380px;
+    background-color: #fff;
+}
+
+.textitem1, .textitem2{
+    position: absolute;
+    height: 40px;
+    left: 30px;
+    border: 1px solid #c7c7c7;
+}
+.textitem1{
+    top: 60px;
+}
+
+.textitem2{
+    top: 120px;
+}
+
+.btn{
+    height: 38px;
+    width: 100px;
+    border: none;
+    color: #fff;
+    font-weight: 400;
+    font-size:20px;
+    font-family: "微软雅黑";
+}
+
+.textitem1 input::-webkit-input-placeholder{
+    font-size: 16px;
+    padding-left: 4px;
+}
+
+.textitem2 input::-webkit-input-placeholder{
+    font-size: 16px;
+    padding-left: 4px;
+}
+
+#select{
+    height: 38px;
+    width: 138px;
+}
+.reg{
+    position:absolute;
+    top: 430px;
+    left: 30px;
+}
+.reg a{
+    font-size: 14px;
+}

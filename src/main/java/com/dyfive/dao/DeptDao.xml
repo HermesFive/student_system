@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dyfive.dao.DeptDao">
+    <select id="getDeptName" resultType="string">
+        select deptName from td_dept;
+    </select>
+    <select id="selectByDeptName" resultType="com.dyfive.entity.Department">
+        select * from td_dept where deptName =  #{deptName}
+    </select>
+</mapper>

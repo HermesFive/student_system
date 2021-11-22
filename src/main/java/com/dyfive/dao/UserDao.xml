@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dyfive.dao.UserDao">
+
+    <sql id="UserFindCriteria">
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="username != null and username!=''">and username = #{username}</if>
+            <if test="password != null and password!=''">and password = #{password}</if>
+            <if test="name != null and name !=''">and name = #{name}</if>
+            <if test="type != null and type!=''">and type = #{type}</if>
+            <if test="email != null and email!=''">and email = #{eamil}</if>
+        </where>
+    </sql>
+
+    <sql id="searchUsersCriteria">
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="name != null and name !=''">and name = #{name}</if>
+            <if test="age != null ">and age = #{age}</if>
+            <if test="type != null and type != ''">and type = #{type}</if>
+            <if test="major != null and major!=''">and major like concat('%',#{major},'%')</if>
+        </where>
+    </sql>
+
+    <sql id="joinedDeptUser">
+        <where>
+            <if test="id != null ">and user.id = #{id}</if>
+            <if test="name != null and name !=''">and user.name = #{name}</if>
+            <if test="age != null ">and user.age = #{age}</if>
+            <if test="type != null and type != ''">and user.type = #{type}</if>
+            <if test="major != null and major!=''">and dept.deptName like concat('%',#{major},'%')</if>
+        </where>
+    </sql>
+
+    <insert id="create" parameterType="com.dyfive.entity.User"  keyProperty="id">
+        insert into td_user(id,username,password,name,remark) values (#{id},#{username},#{password},#{name},#{remark})
+    </insert>
+
+    <delete id="delete" >
+        delete from td_user
+        <include refid="UserFindCriteria"/>
+    </delete>
+
+    <select id="selectDetail" resultType="com.dyfive.entity.User">
+        select * from td_user
+        <include refid="UserFindCriteria"/>
+        limit 1
+    </select>
+
+    <select id="login" resultType="com.dyfive.entity.User">
+        select * from td_user where username = #{username} and password = #{password} and type = #{type}
+    </select>
+
+    <select id="selectByUsernameAndType" resultType="com.dyfive.entity.User">
+        select * from td_user where username = #{username} and type = #{type}
+    </select>
+
+    <insert id="register" parameterType="com.dyfive.entity.User"  keyProperty="id" useGeneratedKeys="true">
+        insert into td_user(username,password,type,email) values(#{username},#{password},#{type},#{email})
+    </insert>
+
+    <update id="updateUser">
+        update td_user
+            set username = #{username},
+                name = #{name},
+                password = #{password},
+                age = #{age},
+                sex = #{sex},
+                email = #{email},
+                major = #{major},
+                address = #{address},
+                type = #{type}
+            where id = #{id}
+    </update>
+
+    <select id="searchUsers" resultType="com.dyfive.entity.User">
+        select user.id as id,user.name as name,user.username as username,user.password as password,user.type as type,
+               user.email as email, user.age as age,user.address as address, user.sex as sex,dept.deptName as major
+        from td_user user join td_dept dept on user.major = dept.deptId
+        <include refid="joinedDeptUser"/>
+    </select>
+
+    <insert id="addUsers">
+        insert into td_user(id,name,age,major,username,password,type,email) values(#{id},#{name},#{age},#{major},#{username},#{password},#{type},#{email})
+    </insert>
+
+    <delete id="deleteUsers">
+        delete from td_user where id = #{id}
+    </delete>
+
+    <select id="selectTeacherByDeptName" resultType="com.dyfive.entity.User">
+        select user.id as id,user.name as name,user.username as username,user.password as password,user.type as type,
+               user.email as email, user.age as age,user.address as address, user.sex as sex,dept.deptName as major
+        from td_user user join td_dept dept on user.major = dept.deptId
+        where dept.deptName = #{major} and user.type='老师'
+    </select>
+
+
+
+</mapper>
